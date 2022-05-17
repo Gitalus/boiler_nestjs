@@ -1,0 +1,24 @@
+service: boilerplate-nestjs
+
+# Permite llamar variables de entorno con ${env:NOMBRE_VARIABLE}
+useDotenv: true
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  # ! TODO: Actualizar región
+  region: sa-east-1
+
+functions:
+  main:
+    handler: dist/main.handler
+    events:
+      - http:
+          method: ANY
+          path: /
+      - http:
+          method: ANY
+          path: '{proxy+}'
